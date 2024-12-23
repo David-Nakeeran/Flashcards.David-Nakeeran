@@ -1,8 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Configuration;
-using Dapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Coordinators;
+using Flashcards.Views;
+using Flashcards.Database;
+using Flashcards.Controllers;
+using Flashcards.Utilities;
+using Flashcards.Mappers;
+using Flashcards.Models;
 
 namespace Flashcards;
 
@@ -14,6 +17,17 @@ class Program
         var services = new ServiceCollection();
 
         // Register services
+        services.AddSingleton<MenuHandler>();
+        services.AddSingleton<DatabaseManager>();
+        services.AddSingleton<Validation>();
+        services.AddSingleton<StackMapper>();
+        services.AddSingleton<FlashcardMapper>();
+        services.AddSingleton<StudySessionMapper>();
+        services.AddSingleton<ListManager>();
+        services.AddSingleton<StacksControllers>();
+        services.AddSingleton<FlashcardsController>();
+        services.AddSingleton<StudySessionController>();
+        services.AddSingleton<Conversion>();
         services.AddSingleton<AppCoordinator>();
 
         //  Build service provider
@@ -22,11 +36,5 @@ class Program
         // Resolve AppCoordinator and start app
         var appCoordinator = serviceProvider.GetRequiredService<AppCoordinator>();
         appCoordinator.Start();
-
-        // string? connectionString = ConfigurationManager.AppSettings["connectionString"];
-
-        // using var connection = new SqlConnection(connectionString);
-        // connection.Open();
-
     }
 }

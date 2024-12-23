@@ -1,9 +1,9 @@
 namespace Flashcards.Models;
 
-class FlashcardsDTO
+class FlashcardsModel
 {
-    internal int DisplayId { get; set; }
+    internal int FlashcardId { get; set; }
     internal string? Front { get; set; }
     internal string? Back { get; set; }
-    internal string? StackName { get; set; }
+    internal int StackId { get; set; }
 }
